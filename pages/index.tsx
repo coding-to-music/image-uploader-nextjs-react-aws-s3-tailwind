@@ -1,17 +1,17 @@
 import type { NextPage } from 'next';
+import Image from 'next/image';
 
 const Home: NextPage = () => {
   return (
     <div className='grid h-screen place-items-center text-center'>
       <div className='p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md'>
-        <a href='#'>
-          <h2 className='mb-2 text-2xl font-bold tracking-tight text-gray-900'>
-            Upload your image
-          </h2>
-        </a>
+        <h2 className='mb-2 text-2xl font-bold tracking-tight text-gray-900'>
+          Upload your image
+        </h2>
         <p className='mb-3 font-normal text-gray-700'>
           File should be Jpeg, Png...
         </p>
+        <Image src={'/image.svg'} width={114} height={88} />
         <p className='mb-3 font-normal text-gray-700'>Or</p>
         <a
           href='#'
