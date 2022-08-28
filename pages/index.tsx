@@ -52,21 +52,29 @@ const Home: NextPage = () => {
         <p className='mb-3 font-light text-sm text-gray-500'>
           File should be Jpeg, Png,...
         </p>
-        <div
-          {...getRootProps()}
-          className='rounded-lg border-2 border-dashed border-blue-200 mt-10 grid gap-10 content-center w-80 h-56 bg-slate-100'
-        >
-          <input {...getInputProps()} />
-          <Image src={'/image.svg'} width={114} height={88} />
-          {isDragActive ? (
-            <p className='text-gray-400 font-light'>Drop the files here ...</p>
-          ) : (
-            <p className='text-gray-400 font-light'>
-              Drag &#038; Drop your image here
-            </p>
-          )}
-        </div>
+
+        {files.length === 0 && (
+          <div
+            {...getRootProps()}
+            className='rounded-lg border-2 border-dashed border-blue-200 mt-10 grid gap-10 content-center w-80 h-56 bg-slate-100'
+          >
+            <input {...getInputProps()} />
+
+            <Image src={'/image.svg'} width={114} height={88} />
+            {isDragActive ? (
+              <p className='text-gray-400 font-light'>
+                Drop the files here ...
+              </p>
+            ) : (
+              <p className='text-gray-400 font-light'>
+                Drag &#038; Drop your image here
+              </p>
+            )}
+          </div>
+        )}
+
         {thumbs}
+
         <p className='my-6 font-light text-gray-500'>Or</p>
         <a
           href='#'
