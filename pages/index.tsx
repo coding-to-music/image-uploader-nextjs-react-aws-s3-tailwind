@@ -53,35 +53,37 @@ const Home: NextPage = () => {
           File should be Jpeg, Png,...
         </p>
 
-        {files.length === 0 && (
-          <div
-            {...getRootProps()}
-            className='rounded-lg border-2 border-dashed border-blue-200 mt-10 grid gap-10 content-center w-80 h-56 bg-slate-100'
-          >
-            <input {...getInputProps()} />
-
-            <Image src={'/image.svg'} width={114} height={88} />
-            {isDragActive ? (
-              <p className='text-gray-400 font-light'>
-                Drop the files here ...
-              </p>
-            ) : (
-              <p className='text-gray-400 font-light'>
-                Drag &#038; Drop your image here
-              </p>
-            )}
-          </div>
-        )}
-
         {thumbs}
 
-        <p className='my-6 font-light text-gray-500'>Or</p>
-        <a
-          href='#'
-          className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300'
-        >
-          Choose a file
-        </a>
+        {files.length === 0 && (
+          <>
+            <div
+              {...getRootProps()}
+              className='rounded-lg border-2 border-dashed border-blue-200 mt-10 grid gap-10 content-center w-80 h-56 bg-slate-100'
+            >
+              <input {...getInputProps()} />
+
+              <Image src={'/image.svg'} width={114} height={88} />
+              {isDragActive ? (
+                <p className='text-gray-400 font-light'>
+                  Drop the files here ...
+                </p>
+              ) : (
+                <p className='text-gray-400 font-light'>
+                  Drag &#038; Drop your image here
+                </p>
+              )}
+            </div>
+
+            <p className='my-6 font-light text-gray-500'>Or</p>
+            <a
+              href='#'
+              className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300'
+            >
+              Choose a file
+            </a>
+          </>
+        )}
       </div>
     </div>
   );
