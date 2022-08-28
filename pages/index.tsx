@@ -10,12 +10,15 @@ interface FilesProps {
 
 const Home: NextPage = () => {
   const [files, setFiles] = useState<FilesProps[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
       'image/*': [],
     },
     onDrop: acceptedFiles => {
+      setIsLoading(true);
+
       setFiles(
         acceptedFiles.map(file =>
           Object.assign(file, {
@@ -23,6 +26,8 @@ const Home: NextPage = () => {
           })
         )
       );
+
+      setIsLoading(false);
     },
   });
 
@@ -55,7 +60,7 @@ const Home: NextPage = () => {
 
         {thumbs}
 
-        {files.length === 0 && (
+        {files.length === 0 && !isLoading && (
           <>
             <div
               {...getRootProps()}
