@@ -13,6 +13,7 @@ const Home: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
+    noClick: true,
     accept: {
       'image/*': [],
     },
