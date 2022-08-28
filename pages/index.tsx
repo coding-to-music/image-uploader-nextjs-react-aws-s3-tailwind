@@ -12,7 +12,7 @@ const Home: NextPage = () => {
   const [files, setFiles] = useState<FilesProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
     accept: {
       'image/*': [],
     },
@@ -81,12 +81,12 @@ const Home: NextPage = () => {
             </div>
 
             <p className='my-6 font-light text-gray-500'>Or</p>
-            <a
-              href='#'
+            <button
+              onClick={open}
               className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300'
             >
               Choose a file
-            </a>
+            </button>
           </>
         )}
       </div>
