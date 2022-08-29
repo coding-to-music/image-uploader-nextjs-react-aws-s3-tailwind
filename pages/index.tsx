@@ -37,7 +37,7 @@ const Home: NextPage = () => {
   });
 
   const thumbs = files.map(file => (
-    <div key={file.name}>
+    <div className='mt-10' key={file.name}>
       <img
         src={file.preview}
         // Revoke data uri after image is loaded
