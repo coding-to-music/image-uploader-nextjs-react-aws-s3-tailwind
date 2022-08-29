@@ -5,8 +5,9 @@ import Image from 'next/image';
 
 import CheckIcon from 'components/CheckIcon';
 import UploadBar from 'components/UploadBar';
+import CardHeader from 'components/CardHeader';
 
-interface FilesProps {
+export interface FilesProps {
   name: string;
   preview: string;
 }
@@ -59,16 +60,8 @@ const Home: NextPage = () => {
       ) : (
         <div className='p-8 max-w-sm text-center bg-white rounded-lg border border-gray-200 shadow-md'>
           {files.length !== 0 && !isLoading && <CheckIcon />}
-          <h2 className='mb-3 text-2xl font-normal tracking-tight text-gray-600'>
-            {files.length === 0
-              ? 'Upload your image'
-              : 'Uploaded Successfully!'}
-          </h2>
-          {files.length === 0 && (
-            <p className='mb-3 font-light text-sm text-gray-500'>
-              File should be Jpeg, Png,...
-            </p>
-          )}
+
+          <CardHeader files={files} />
 
           {thumbs}
 
