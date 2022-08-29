@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.progress-info::-moz-progress-bar {
+  --tw-bg-opacity: 1;
+  background-color: hsl(217, 91%, 60%);
+}
+.progress-info:indeterminate::after {
+  --tw-bg-opacity: 1;
+  background-color: hsl(217, 91%, 60%);
+}
+.progress-info::-webkit-progress-value {
+  --tw-bg-opacity: 1;
+  background-color: hsl(217, 91%, 60%);
+}

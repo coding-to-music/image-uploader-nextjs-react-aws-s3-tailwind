@@ -45,52 +45,62 @@ const Home: NextPage = () => {
   ));
 
   useEffect(() => {
-    // Revoke the data uris to avoid memory leaks, will run on unmount
+    // Revoke data uris to avoid memory leaks, will run on unmount
     return () => files.forEach(file => URL.revokeObjectURL(file.preview));
   }, []);
 
   return (
     <div className='grid h-screen place-items-center'>
-      <div className='p-8 max-w-sm text-center bg-white rounded-lg border border-gray-200 shadow-md'>
-        <h2 className='mb-3 text-2xl font-normal tracking-tight text-gray-600'>
-          Upload your image
-        </h2>
-        <p className='mb-3 font-light text-sm text-gray-500'>
-          File should be Jpeg, Png,...
-        </p>
+      {isLoading ? (
+        <div className='p-8 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md'>
+          <h2 className='mb-3 text-2xl font-normal tracking-tight text-gray-600'>
+            Uploading...
+          </h2>
 
-        {thumbs}
+          <progress className='progress progress-info bg-slate-100 w-80'></progress>
+        </div>
+      ) : (
+        <div className='p-8 max-w-sm text-center bg-white rounded-lg border border-gray-200 shadow-md'>
+          <h2 className='mb-3 text-2xl font-normal tracking-tight text-gray-600'>
+            Upload your image
+          </h2>
+          <p className='mb-3 font-light text-sm text-gray-500'>
+            File should be Jpeg, Png,...
+          </p>
 
-        {files.length === 0 && !isLoading && (
-          <>
-            <div
-              {...getRootProps()}
-              className='rounded-lg border-2 border-dashed border-blue-200 mt-10 grid gap-10 content-center w-80 h-56 bg-slate-100'
-            >
-              <input {...getInputProps()} />
+          {thumbs}
 
-              <Image src={'/image.svg'} width={114} height={88} />
-              {isDragActive ? (
-                <p className='text-gray-400 font-light'>
-                  Drop the files here ...
-                </p>
-              ) : (
-                <p className='text-gray-400 font-light'>
-                  Drag &#038; Drop your image here
-                </p>
-              )}
-            </div>
+          {files.length === 0 && (
+            <>
+              <div
+                {...getRootProps()}
+                className='w-80 h-56 rounded-lg border-2 border-dashed border-blue-200 mt-10 grid gap-10 content-center bg-slate-100'
+              >
+                <input {...getInputProps()} />
 
-            <p className='my-6 font-light text-gray-500'>Or</p>
-            <button
-              onClick={open}
-              className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300'
-            >
-              Choose a file
-            </button>
-          </>
-        )}
-      </div>
+                <Image src={'/image.svg'} width={114} height={88} />
+                {isDragActive ? (
+                  <p className='text-gray-400 font-light'>
+                    Drop the files here ...
+                  </p>
+                ) : (
+                  <p className='text-gray-400 font-light'>
+                    Drag &#038; Drop your image here
+                  </p>
+                )}
+              </div>
+
+              <p className='my-6 font-light text-gray-500'>Or</p>
+              <button
+                onClick={open}
+                className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300'
+              >
+                Choose a file
+              </button>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };
