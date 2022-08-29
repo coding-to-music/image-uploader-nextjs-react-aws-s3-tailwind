@@ -4,6 +4,7 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 
 import CheckIcon from 'components/CheckIcon';
+import UploadBar from 'components/UploadBar';
 
 interface FilesProps {
   name: string;
@@ -54,13 +55,7 @@ const Home: NextPage = () => {
   return (
     <div className='grid h-screen place-items-center'>
       {isLoading ? (
-        <div className='p-8 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md'>
-          <h2 className='mb-3 text-2xl font-normal tracking-tight text-gray-600'>
-            Uploading...
-          </h2>
-
-          <progress className='progress progress-info bg-slate-100 w-80'></progress>
-        </div>
+        <UploadBar />
       ) : (
         <div className='p-8 max-w-sm text-center bg-white rounded-lg border border-gray-200 shadow-md'>
           {files.length !== 0 && !isLoading && <CheckIcon />}
