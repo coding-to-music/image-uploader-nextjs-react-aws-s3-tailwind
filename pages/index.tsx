@@ -66,9 +66,11 @@ const Home: NextPage = () => {
               ? 'Upload your image'
               : 'Uploaded Successfully!'}
           </h2>
-          <p className='mb-3 font-light text-sm text-gray-500'>
-            File should be Jpeg, Png,...
-          </p>
+          {files.length === 0 && (
+            <p className='mb-3 font-light text-sm text-gray-500'>
+              File should be Jpeg, Png,...
+            </p>
+          )}
 
           {thumbs}
 
