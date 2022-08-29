@@ -62,7 +62,9 @@ const Home: NextPage = () => {
       ) : (
         <div className='p-8 max-w-sm text-center bg-white rounded-lg border border-gray-200 shadow-md'>
           <h2 className='mb-3 text-2xl font-normal tracking-tight text-gray-600'>
-            Upload your image
+            {files.length === 0
+              ? 'Upload your image'
+              : 'Uploaded Successfully!'}
           </h2>
           <p className='mb-3 font-light text-sm text-gray-500'>
             File should be Jpeg, Png,...
