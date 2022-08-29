@@ -3,6 +3,8 @@ import { useDropzone } from 'react-dropzone';
 import type { NextPage } from 'next';
 import Image from 'next/image';
 
+import CheckIcon from 'components/CheckIcon';
+
 interface FilesProps {
   name: string;
   preview: string;
@@ -61,6 +63,7 @@ const Home: NextPage = () => {
         </div>
       ) : (
         <div className='p-8 max-w-sm text-center bg-white rounded-lg border border-gray-200 shadow-md'>
+          {files.length !== 0 && !isLoading && <CheckIcon />}
           <h2 className='mb-3 text-2xl font-normal tracking-tight text-gray-600'>
             {files.length === 0
               ? 'Upload your image'
