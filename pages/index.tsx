@@ -6,6 +6,7 @@ import Image from 'next/image';
 import CheckIcon from 'components/CheckIcon';
 import UploadBar from 'components/UploadBar';
 import CardHeader from 'components/CardHeader';
+import UrlBar from 'components/UrlBar';
 
 export interface FilesProps {
   name: string;
@@ -64,6 +65,8 @@ const Home: NextPage = () => {
           <CardHeader files={files} />
 
           {thumbs}
+
+          {files.length !== 0 && <UrlBar />}
 
           {files.length === 0 && (
             <>
