@@ -22,7 +22,7 @@ const UrlBar = () => {
             setTimeout(() => setCopied(false), 1000);
           }
         }}
-        className='inline-flex items-center py-2 px-5 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none'
+        className='w-20 p-2 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none'
       >
         {copied ? 'Copied' : 'Copy'}
       </button>
