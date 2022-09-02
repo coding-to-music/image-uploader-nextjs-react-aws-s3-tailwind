@@ -1,6 +1,6 @@
+import type { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import type { NextPage } from 'next';
 
 import CheckIcon from 'components/CheckIcon';
 import UploadBar from 'components/UploadBar';
@@ -64,7 +64,7 @@ const Home: NextPage = () => {
 
           <CardHeader files={files} />
 
-          {thumbs}
+          {thumbs[0]}
 
           {files.length !== 0 && <UrlBar />}
 
