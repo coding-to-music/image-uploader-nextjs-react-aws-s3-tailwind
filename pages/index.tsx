@@ -17,13 +17,33 @@ const Home: NextPage = () => {
   const [files, setFiles] = useState<FilesProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const uploadPhoto = async (image: File) => {
+    const file = image;
+    const filename = encodeURIComponent(file.name);
+    const res = await fetch(`/api/image-upload?file=${filename}`);
+    const data = await res.json();
+    const formData = new FormData();
+
+    Object.entries({ ...data.fields, file }).forEach(([key, value]) => {
+      // @ts-ignore
+      formData.append(key, value);
+    });
+
+    await fetch(data.url, {
+      method: 'POST',
+      body: formData,
+    });
+  };
+
   const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
     noClick: true,
     accept: {
       'image/*': [],
     },
-    onDrop: acceptedFiles => {
+    onDrop: async acceptedFiles => {
       setIsLoading(true);
+
+      await uploadPhoto(acceptedFiles[0]);
 
       setFiles(
         acceptedFiles.map(file =>

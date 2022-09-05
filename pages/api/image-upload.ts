@@ -1,6 +1,7 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import aws from 'aws-sdk';
 
-export default async function handler(req, res) {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const s3 = new aws.S3({
       accessKeyId: process.env.APP_AWS_ACCESS_KEY,
@@ -30,4 +31,6 @@ export default async function handler(req, res) {
   } catch (error) {
     console.log(error);
   }
-}
+};
+
+export default handler;
