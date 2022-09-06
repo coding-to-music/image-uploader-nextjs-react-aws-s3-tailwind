@@ -24,6 +24,8 @@ const Home: NextPage = () => {
     const data = await res.json();
     const formData = new FormData();
 
+    formData.append('Content-Type', file.type);
+
     Object.entries({ ...data.fields, file }).forEach(([key, value]) => {
       // @ts-ignore
       formData.append(key, value);
