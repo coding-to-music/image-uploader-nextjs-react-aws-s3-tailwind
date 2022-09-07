@@ -16,6 +16,7 @@ export interface FilesProps {
 const Home: NextPage = () => {
   const [files, setFiles] = useState<FilesProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState('');
 
   const uploadPhoto = async (image: File) => {
     const file = image;
@@ -35,6 +36,10 @@ const Home: NextPage = () => {
       method: 'POST',
       body: formData,
     });
+
+    setUploadedImageUrl(
+      `https://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.amazonaws.com/${filename}`
+    );
   };
 
   const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
@@ -88,7 +93,7 @@ const Home: NextPage = () => {
 
           {thumbs[0]}
 
-          {files.length !== 0 && <UrlBar />}
+          {files.length !== 0 && <UrlBar uploadedImageUrl={uploadedImageUrl} />}
 
           {files.length === 0 && (
             <FileUpload

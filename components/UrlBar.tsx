@@ -1,6 +1,10 @@
 import { useRef, useState } from 'react';
 
-const UrlBar = () => {
+interface UrlBarProps {
+  uploadedImageUrl: string;
+}
+
+const UrlBar = ({ uploadedImageUrl }: UrlBarProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [copied, setCopied] = useState(false);
 
@@ -10,6 +14,8 @@ const UrlBar = () => {
         type='text'
         className='grow p-1.5 bg-gray-50 focus:outline-none'
         ref={inputRef}
+        value={uploadedImageUrl}
+        readOnly
       />
       <button
         onClick={() => {
