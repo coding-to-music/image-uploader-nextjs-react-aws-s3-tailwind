@@ -22,7 +22,7 @@ const FileUpload = ({
       >
         <input {...getInputProps()} />
 
-        <Image src={'/image.svg'} width={114} height={88} />
+        <Image priority src={'/image.svg'} width={114} height={88} />
         {isDragActive ? (
           <p className='text-gray-400 font-light'>Drop the files here ...</p>
         ) : (
