@@ -8,12 +8,12 @@ interface FileUploadProps {
   isDragActive: boolean;
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({
+const FileUpload = ({
   getRootProps,
   getInputProps,
   open,
   isDragActive,
-}) => {
+}: FileUploadProps) => {
   return (
     <>
       <div

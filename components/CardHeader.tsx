@@ -4,7 +4,7 @@ interface CardHeaderProps {
   files: FilesProps[];
 }
 
-const CardHeader: React.FC<CardHeaderProps> = ({ files }) => {
+const CardHeader = ({ files }: CardHeaderProps) => {
   return (
     <>
       <h2 className='mb-3 text-2xl font-normal tracking-tight text-gray-600'>
