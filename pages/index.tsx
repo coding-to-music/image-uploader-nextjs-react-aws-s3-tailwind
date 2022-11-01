@@ -1,12 +1,15 @@
-import type { NextPage } from 'next';
-import React, { useEffect, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
+import type { NextPage } from "next";
+import React, { useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
 
-import CheckIcon from 'components/CheckIcon';
-import UploadBar from 'components/UploadBar';
-import CardHeader from 'components/CardHeader';
-import UrlBar from 'components/UrlBar';
-import FileUpload from 'components/FileUpload';
+import CheckIcon from "components/CheckIcon";
+import UploadBar from "components/UploadBar";
+import CardHeader from "components/CardHeader";
+import UrlBar from "components/UrlBar";
+import FileUpload from "components/FileUpload";
+import Image from "next/image";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 export interface FilesProps {
   name: string;
@@ -16,7 +19,7 @@ export interface FilesProps {
 const Home: NextPage = () => {
   const [files, setFiles] = useState<FilesProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [uploadedImageUrl, setUploadedImageUrl] = useState('');
+  const [uploadedImageUrl, setUploadedImageUrl] = useState("");
 
   const uploadPhoto = async (image: File) => {
     const file = image;
@@ -25,7 +28,7 @@ const Home: NextPage = () => {
     const data = await res.json();
     const formData = new FormData();
 
-    formData.append('Content-Type', file.type);
+    formData.append("Content-Type", file.type);
 
     Object.entries({ ...data.fields, file }).forEach(([key, value]) => {
       // @ts-ignore
@@ -33,7 +36,7 @@ const Home: NextPage = () => {
     });
 
     await fetch(data.url, {
-      method: 'POST',
+      method: "POST",
       body: formData,
     });
 
@@ -45,15 +48,15 @@ const Home: NextPage = () => {
   const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
     noClick: true,
     accept: {
-      'image/*': [],
+      "image/*": [],
     },
-    onDrop: async acceptedFiles => {
+    onDrop: async (acceptedFiles) => {
       setIsLoading(true);
 
       await uploadPhoto(acceptedFiles[0]);
 
       setFiles(
-        acceptedFiles.map(file =>
+        acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
@@ -64,10 +67,11 @@ const Home: NextPage = () => {
     },
   });
 
-  const thumbs = files.map(file => (
-    <div className='mt-10' key={file.name}>
-      <img
+  const thumbs = files.map((file) => (
+    <div className="mt-10" key={file.name}>
+      <Image
         src={file.preview}
+        alt=""
         // Revoke data uri after image is loaded
         onLoad={() => {
           URL.revokeObjectURL(file.preview);
@@ -78,15 +82,15 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     // Revoke data uris to avoid memory leaks, will run on unmount
-    return () => files.forEach(file => URL.revokeObjectURL(file.preview));
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
   }, []);
 
   return (
-    <div className='grid h-screen place-items-center'>
+    <div className="grid h-screen place-items-center">
       {isLoading ? (
         <UploadBar />
       ) : (
-        <div className='p-8 max-w-sm text-center bg-white rounded-lg border border-gray-200 shadow-md'>
+        <div className="p-8 max-w-sm text-center bg-white rounded-lg border border-gray-200 shadow-md">
           {files.length !== 0 && !isLoading && <CheckIcon />}
 
           <CardHeader files={files} />
