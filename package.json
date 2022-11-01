@@ -1,11 +1,12 @@
 {
-  "name": "image-uploader",
+  "name": "image-uploader-nextjs-react-aws-s3-tailwind",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "deploy": "git add . && git commit -m Build && git push",
     "lint": "next lint"
   },
   "dependencies": {
