@@ -8,8 +8,8 @@ import CardHeader from "components/CardHeader";
 import UrlBar from "components/UrlBar";
 import FileUpload from "components/FileUpload";
 import Image from "next/image";
-// import * as dotenv from "dotenv";
-// dotenv.config();
+import * as dotenv from "dotenv";
+dotenv.config();
 
 export interface FilesProps {
   name: string;

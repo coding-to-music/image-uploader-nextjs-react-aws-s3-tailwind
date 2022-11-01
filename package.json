@@ -2,6 +2,7 @@
   "name": "image-uploader-nextjs-react-aws-s3-tailwind",
   "version": "0.1.0",
   "private": true,
+  "browser": { "fs": false},
   "scripts": {
     "dev": "next dev",
     "build": "next build",

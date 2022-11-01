@@ -3,6 +3,10 @@ import aws from "aws-sdk";
 import * as dotenv from "dotenv";
 dotenv.config();
 
+console.log("accessKeyId: ", process.env.APP_AWS_ACCESS_KEY)
+console.log("secretAccessKey: ", process.env.APP_AWS_SECRET_KEY)
+console.log("region: ", process.env.APP_AWS_REGION)
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const s3 = new aws.S3({
