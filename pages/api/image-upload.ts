@@ -1,13 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
-// import aws from "aws-sdk";
 import { createPresignedPost } from "@aws-sdk/s3-presigned-post";
-import { S3Client } from "@aws-sdk/client-s3";
+import { S3Client, S3ClientConfig } from "@aws-sdk/client-s3";
 import * as dotenv from "dotenv";
 dotenv.config();
-
-// console.log("accessKeyId: ", process.env.APP_AWS_ACCESS_KEY)
-// console.log("secretAccessKey: ", process.env.APP_AWS_SECRET_KEY)
-// console.log("region: ", process.env.APP_AWS_REGION)
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
@@ -23,62 +18,33 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const Conditions = [{ acl: "public-read" }, { bucket: mybucket }, ["starts-with", "something", "user/eric/"]];
 
+  const credentials = {
+    accessKeyId: myaccessKeyId,
+    secretAccessKey: mysecretAccessKey,
+  }
+
+  const config = {
+    region: myregion,
+    credentials
+    };
+
+
   try {
-    // const s3 = new aws.S3({
-    const client = new S3Client({ region: myregion
-// {      accessKeyId: myaccessKeyId,
-//       secretAccessKey: mysecretAccessKey,
-// }
-});
-    
+    const client = new S3Client(config);
     const Bucket = mybucket;
     const Key = mysecretAccessKey;
     const Fields = {
           acl: "public-read",
           };
 
-    console.log("client: ", client);
-    console.log("Bucket: ", Bucket);
-    console.log("Key: ", Key);
-    console.log("Conditions: ", Conditions);
-    console.log("Fields: ", Fields);
-    console.log("Bucket: ", Bucket);
-
-
-    const { url, fields } = await createPresignedPost(client, {
+    const { url, fields } = await createPresignedPost(s3Client, {
       Bucket,
       Key,
       Conditions,
       Fields,
       Expires: 600, //Seconds before the presigned post expires. 3600 by default.
     });
-
-
-
-    // aws.config.update({
-    //   region: myregion,
-    //   accessKeyId: myaccessKeyId,
-    //   secretAccessKey: mysecretAccessKey,
-    //   signatureVersion: "v4",
-    // });
-
-    // console.log("accessKeyId: ", process.env.APP_AWS_ACCESS_KEY)
-    // console.log("secretAccessKey: ", process.env.APP_AWS_SECRET_KEY)
-    // console.log("region: ", process.env.APP_AWS_REGION)
-        
-    // console.log("about to s3.createPresignedPost")
-    // const post = await s3.createPresignedPost({
-    //   Bucket: process.env.AWS_S3_BUCKET_NAME,
-    //   Fields: {
-    //     key: req.query.file,
-    //   },
-    //   Expires: 60, // seconds
-    //   Conditions: [
-    //     ["content-length-range", 0, 5048576], // up to 5 MB
-    //     ["starts-with", "$Content-Type", "image/"],
-    //   ],
-    // });
-
+    
     return res.status(200).json(post);
   } catch (error) {
     console.log(error);
