@@ -3,9 +3,9 @@ import aws from "aws-sdk";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-console.log("accessKeyId: ", process.env.APP_AWS_ACCESS_KEY)
-console.log("secretAccessKey: ", process.env.APP_AWS_SECRET_KEY)
-console.log("region: ", process.env.APP_AWS_REGION)
+// console.log("accessKeyId: ", process.env.APP_AWS_ACCESS_KEY)
+// console.log("secretAccessKey: ", process.env.APP_AWS_SECRET_KEY)
+// console.log("region: ", process.env.APP_AWS_REGION)
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -22,6 +22,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       signatureVersion: "v4",
     });
 
+    console.log("accessKeyId: ", process.env.APP_AWS_ACCESS_KEY)
+    console.log("secretAccessKey: ", process.env.APP_AWS_SECRET_KEY)
+    console.log("region: ", process.env.APP_AWS_REGION)
+        
     const post = await s3.createPresignedPost({
       Bucket: process.env.AWS_S3_BUCKET_NAME,
       Fields: {
