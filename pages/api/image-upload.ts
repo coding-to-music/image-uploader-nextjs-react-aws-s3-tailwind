@@ -8,23 +8,32 @@ dotenv.config();
 // console.log("region: ", process.env.APP_AWS_REGION)
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+
+  const myregion = process.env.APP_AWS_REGION;
+  const myaccessKeyId = process.env.APP_AWS_ACCESS_KEY;
+  const mysecretAccessKey =process.env.APP_AWS_SECRET_KEY;
+
+  console.log("accessKeyId: ", myaccessKeyId)
+  console.log("secretAccessKey: ", mysecretAccessKey)
+  console.log("region: ", myregion)
+
   try {
     const s3 = new aws.S3({
-      accessKeyId: process.env.APP_AWS_ACCESS_KEY,
-      secretAccessKey: process.env.APP_AWS_SECRET_KEY,
-      region: process.env.APP_AWS_REGION,
+      region: myregion,
+      accessKeyId: myaccessKeyId,
+      secretAccessKey: mysecretAccessKey,
     });
 
     aws.config.update({
-      accessKeyId: process.env.APP_AWS_ACCESS_KEY,
-      secretAccessKey: process.env.APP_AWS_SECRET_KEY,
-      region: process.env.APP_AWS_REGION,
+      region: myregion,
+      accessKeyId: myaccessKeyId,
+      secretAccessKey: mysecretAccessKey,
       signatureVersion: "v4",
     });
 
-    console.log("accessKeyId: ", process.env.APP_AWS_ACCESS_KEY)
-    console.log("secretAccessKey: ", process.env.APP_AWS_SECRET_KEY)
-    console.log("region: ", process.env.APP_AWS_REGION)
+    // console.log("accessKeyId: ", process.env.APP_AWS_ACCESS_KEY)
+    // console.log("secretAccessKey: ", process.env.APP_AWS_SECRET_KEY)
+    // console.log("region: ", process.env.APP_AWS_REGION)
         
     const post = await s3.createPresignedPost({
       Bucket: process.env.AWS_S3_BUCKET_NAME,
