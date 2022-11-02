@@ -2,7 +2,9 @@
   "name": "image-uploader-nextjs-react-aws-s3-tailwind",
   "version": "0.1.0",
   "private": true,
-  "browser": { "fs": false},
+  "browser": {
+    "fs": false
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,6 +13,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.201.0",
+    "@aws-sdk/s3-presigned-post": "^3.201.0",
     "aws-sdk": "^2.1208.0",
     "daisyui": "^2.24.0",
     "dotenv": "^16.0.3",
