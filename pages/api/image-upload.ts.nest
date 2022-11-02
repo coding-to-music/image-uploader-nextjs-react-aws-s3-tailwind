@@ -1,0 +1,65 @@
+import { NextApiRequest, NextApiResponse } from "next";
+// import { Injectable, Req, Res } from '@nestjs/common';
+import * as AWS from "aws-sdk";
+import * as dotenv from "dotenv";
+dotenv.config();
+
+// @Injectable()
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+
+    const myregion = process.env.APP_AWS_REGION;
+    const myaccessKeyId = process.env.APP_AWS_ACCESS_KEY;
+    const mysecretAccessKey = process.env.APP_AWS_SECRET_KEY;
+    const mybucket = process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME;
+  
+    console.log("accessKeyId: ", myaccessKeyId)
+    console.log("secretAccessKey: ", mysecretAccessKey)
+    console.log("region: ", myregion)
+    console.log("bucket: ", mybucket)
+  
+    // AWS_S3_BUCKET = process.env.AWS_S3_BUCKET;
+    const s3 = new AWS.S3
+    ({
+        accessKeyId: myaccessKeyId,
+        secretAccessKey: mysecretAccessKey,
+    });
+
+    // async uploadFile(file)
+    // {
+    //     const { originalname } = file;
+
+    //     await this.s3_upload(file.buffer, this.AWS_S3_BUCKET, originalname, file.mimetype);
+    // }
+
+    // async s3_upload(file, bucket, name, mimetype)
+    // {
+    //     const params = 
+    //     {
+    //         Bucket: bucket,
+    //         Key: String(name),
+    //         Body: file,
+    //         ACL: "public-read",
+    //         ContentType: mimetype,
+    //         ContentDisposition:"inline",
+    //         CreateBucketConfiguration: 
+    //         {
+    //             LocationConstraint: "ap-south-1"
+    //         }
+    //     };
+
+    //     console.log(params);
+
+    //     try
+    //     {
+    //         let s3Response = await this.s3.upload(params).promise();
+
+    //         console.log(s3Response);
+    //     }
+    //     catch (e)
+    //     {
+    //         console.log(e);
+    //     }
+    // }
+}
+
+export default handler;

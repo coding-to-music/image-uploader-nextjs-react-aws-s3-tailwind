@@ -16,34 +16,25 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const mysecretAccessKey = process.env.APP_AWS_SECRET_KEY;
   const mybucket = process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME;
 
+  const Conditions = [{ acl: "public-read" }, { bucket: mybucket }, ["starts-with", "$key", "user/eric/"]];
+  const Bucket = mybucket;
+  const Key = mysecretAccessKey;
+
   console.log("accessKeyId: ", myaccessKeyId)
   console.log("secretAccessKey: ", mysecretAccessKey)
   console.log("region: ", myregion)
-  console.log("bucket: ", mybucket)
+  console.log("bucket: ", Bucket)
+  console.log("key: ", Key)
+  console.log("Conditions: ", Conditions)
 
-  const Conditions = [{ acl: "public-read" }, { bucket: mybucket }, ["starts-with", "something", "user/eric/"]];
 
   try {
     // const s3 = new aws.S3({
-    const client = new S3Client({ region: myregion
-// {      accessKeyId: myaccessKeyId,
-//       secretAccessKey: mysecretAccessKey,
-// }
-});
+    const client = new S3Client({ region: myregion});
     
-    const Bucket = mybucket;
-    const Key = mysecretAccessKey;
     const Fields = {
           acl: "public-read",
           };
-
-    console.log("client: ", client);
-    console.log("Bucket: ", Bucket);
-    console.log("Key: ", Key);
-    console.log("Conditions: ", Conditions);
-    console.log("Fields: ", Fields);
-    console.log("Bucket: ", Bucket);
-
 
     const { url, fields } = await createPresignedPost(client, {
       Bucket,
@@ -52,8 +43,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       Fields,
       Expires: 600, //Seconds before the presigned post expires. 3600 by default.
     });
-
-
 
     // aws.config.update({
     //   region: myregion,
@@ -79,7 +68,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     //   ],
     // });
 
-    return res.status(200).json(post);
+    return res.status(200).json(Conditions);
+    // return res.status(200).json(post);
   } catch (error) {
     console.log(error);
     return;

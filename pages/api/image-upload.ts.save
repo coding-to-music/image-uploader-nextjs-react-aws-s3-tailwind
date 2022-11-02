@@ -21,29 +21,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log("region: ", myregion)
   console.log("bucket: ", mybucket)
 
-  const Conditions = [{ acl: "public-read" }, { bucket: mybucket }, ["starts-with", "something", "user/eric/"]];
+  const Conditions = [{ acl: "public-read" }, { bucket: mybucket }, ["starts-with", "$key", "user/eric/"]];
 
   try {
     // const s3 = new aws.S3({
-    const client = new S3Client({ region: myregion
-// {      accessKeyId: myaccessKeyId,
-//       secretAccessKey: mysecretAccessKey,
-// }
-});
+    const client = new S3Client({ region: myregion});
     
-    const Bucket = mybucket;
+    const Bucket = "johnsmith";
     const Key = mysecretAccessKey;
     const Fields = {
           acl: "public-read",
           };
-
-    console.log("client: ", client);
-    console.log("Bucket: ", Bucket);
-    console.log("Key: ", Key);
-    console.log("Conditions: ", Conditions);
-    console.log("Fields: ", Fields);
-    console.log("Bucket: ", Bucket);
-
 
     const { url, fields } = await createPresignedPost(client, {
       Bucket,
@@ -52,8 +40,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       Fields,
       Expires: 600, //Seconds before the presigned post expires. 3600 by default.
     });
-
-
 
     // aws.config.update({
     //   region: myregion,
