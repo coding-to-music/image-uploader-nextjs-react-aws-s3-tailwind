@@ -69,3 +69,23 @@ Warning: Prop `style` did not match. Server: "display: block; max-width: 100%; w
 
 See more info here: https://nextjs.org/docs/messages/react-hydration-error
 ```
+
+### Error recommendation
+
+```
+const config: {
+    region: string | undefined;
+    credentials: {
+        accessKeyId: string | undefined;
+        secretAccessKey: string | undefined;
+    };
+}
+Argument of type '{ region: string | undefined; credentials: { accessKeyId: string | undefined; secretAccessKey: string | undefined; }; }' is not assignable to parameter of type 'S3ClientConfig'.
+  Type '{ region: string | undefined; credentials: { accessKeyId: string | undefined; secretAccessKey: string | undefined; }; }' is not assignable to type 'AwsAuthInputConfig'.
+    Types of property 'credentials' are incompatible.
+      Type '{ accessKeyId: string | undefined; secretAccessKey: string | undefined; }' is not assignable to type 'Credentials | Provider<Credentials> | undefined'.
+        Type '{ accessKeyId: string | undefined; secretAccessKey: string | undefined; }' is not assignable to type 'Credentials'.
+          Types of property 'accessKeyId' are incompatible.
+            Type 'string | undefined' is not assignable to type 'string'.
+              Type 'undefined' is not assignable to type 'string'.ts(2345)
+```

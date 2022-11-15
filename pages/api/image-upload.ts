@@ -18,14 +18,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const Conditions = [{ acl: "public-read" }, { bucket: mybucket }, ["starts-with", "something", "user/eric/"]];
 
-  const credentials = {
+  const mycredentials = {
     accessKeyId: myaccessKeyId,
     secretAccessKey: mysecretAccessKey,
   }
 
   const config = {
     region: myregion,
-    credentials
+    credentials: mycredentials
     };
 
 
